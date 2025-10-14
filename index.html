@@ -3,43 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>qelix.cc</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <title>Qelix - Download Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
         }
 
-        h1 {
-            font-size: 120px;
-            font-weight: bold;
-            margin: 0;
-            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red);
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.2), transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            background: #111;
+            border-bottom: 1px solid #222;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .social-link {
+            color: #aaa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .social-link:hover {
+            color: #00d4ff;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00d4ff;
+        }
+
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff, #00d4ff);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: rainbow 3s linear infinite;
+            animation: gradientShift 3s ease infinite;
         }
 
-        @keyframes rainbow {
-            0% {
-                background-position: 0% center;
-            }
-            100% {
-                background-position: 200% center;
-            }
+
+
+        .hero p {
+            color: #aaa;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #aaa;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-btn:hover {
+            background: #00d4ff;
+            color: #000;
+            border-color: #00d4ff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 51, 51, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card:hover {
+            background: rgba(34, 34, 34, 0.8);
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .card-desc {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        footer {
+            background: #111;
+            border-top: 1px solid #222;
+            padding: 30px 0;
+            text-align: center;
+            color: #666;
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
-    <h1>soon</h1>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">qelix.cc</div>
+                <div class="nav-right">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#downloads">Downloads</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <div class="socials">
+                        <a href="https://youtube.com/@qelixmc" class="social-link" target="_blank">YouTube</a>
+                        <a href="https://twitter.com/qelixmc" class="social-link" target="_blank">Twitter</a>
+                        <a href="https://discord.gg/qelix" class="social-link" target="_blank">Discord</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Qelix</h1>
+            <p>Premium downloads and resources all in one place</p>
+        </section>
+
+        <div class="filters">
+            <button class="filter-btn">All</button>
+            <button class="filter-btn">Tools</button>
+            <button class="filter-btn">Clients</button>
+            <button class="filter-btn">Packs</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">Quantum Tool</div>
+                <div class="card-desc">Advanced performance optimizer</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Nexus Client</div>
+                <div class="card-desc">Lightweight and powerful</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Prism Suite</div>
+                <div class="card-desc">Complete utility bundle</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Flux Manager</div>
+                <div class="card-desc">System management utility</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Apex Clicker</div>
+                <div class="card-desc">Fast and reliable</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Neon Pack V2</div>
+                <div class="card-desc">Modern visual enhancement</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Vortex Utility</div>
+                <div class="card-desc">All-in-one solution</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Cipher Tools</div>
+                <div class="card-desc">Security focused package</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Phoenix Client</div>
+                <div class="card-desc">Rise from the ashes</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Ultra Pack</div>
+                <div class="card-desc">Premium enhancement set</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Velocity Tool</div>
+                <div class="card-desc">Speed optimization suite</div>
+                <button class="download-btn">Download</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Nova Framework</div>
+                <div class="card-desc">Next-generation platform</div>
+                <button class="download-btn">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 qelix.cc. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
