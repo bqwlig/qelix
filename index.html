@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qelix - Download Portal</title>
+    <title>qelix.cc</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -121,8 +121,6 @@
             animation: gradientShift 3s ease infinite;
         }
 
-
-
         .hero p {
             color: #aaa;
             font-size: 18px;
@@ -205,8 +203,216 @@
         }
 
         .download-btn:hover {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Content Locker Overlay */
+        .locker-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .locker-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .locker-container {
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #ff4444;
+        }
+
+        .locker-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .locker-subtitle {
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .task-container {
+            background: rgba(17, 17, 17, 0.6);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .task-container.completed {
+            border-color: rgba(0, 255, 136, 0.5);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .task-number {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #000;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .task-container.completed .task-number {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+        }
+
+        .task-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .task-description {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .task-btn {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .task-btn:hover {
+            transform: scale(1.02);
             box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .task-btn.completed {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            cursor: default;
+        }
+
+        .task-btn.completed:hover {
+            transform: none;
+        }
+
+        .checkmark {
+            display: none;
+            color: #00ff88;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+        .task-container.completed .checkmark {
+            display: inline;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .unlock-btn.active {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .unlock-btn.active:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
         }
 
         footer {
@@ -258,74 +464,110 @@
             <div class="card">
                 <div class="card-title">Quantum Tool</div>
                 <div class="card-desc">Advanced performance optimizer</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Quantum Tool', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Nexus Client</div>
                 <div class="card-desc">Lightweight and powerful</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Nexus Client', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Prism Suite</div>
                 <div class="card-desc">Complete utility bundle</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Prism Suite', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Flux Manager</div>
                 <div class="card-desc">System management utility</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Flux Manager', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Apex Clicker</div>
                 <div class="card-desc">Fast and reliable</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Apex Clicker', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Neon Pack V2</div>
                 <div class="card-desc">Modern visual enhancement</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Neon Pack V2', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Vortex Utility</div>
                 <div class="card-desc">All-in-one solution</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Vortex Utility', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Cipher Tools</div>
                 <div class="card-desc">Security focused package</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Cipher Tools', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Phoenix Client</div>
                 <div class="card-desc">Rise from the ashes</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Phoenix Client', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Ultra Pack</div>
                 <div class="card-desc">Premium enhancement set</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Ultra Pack', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Velocity Tool</div>
                 <div class="card-desc">Speed optimization suite</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Velocity Tool', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
 
             <div class="card">
                 <div class="card-title">Nova Framework</div>
                 <div class="card-desc">Next-generation platform</div>
-                <button class="download-btn">Download</button>
+                <button class="download-btn" onclick="openLocker('Nova Framework', 'https://youtube.com/YOUR_VIDEO_ID')">Download</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Content Locker Overlay -->
+    <div class="locker-overlay" id="lockerOverlay">
+        <div class="locker-container">
+            <button class="close-btn" onclick="closeLocker()">&times;</button>
+            
+            <h2 class="locker-title" id="lockerItemName">Unlock Download</h2>
+            <p class="locker-subtitle">Complete these tasks to unlock your download</p>
+
+            <!-- Task 1: Subscribe -->
+            <div class="task-container" id="task1">
+                <div class="task-header">
+                    <div class="task-number">1</div>
+                    <div class="task-title">Subscribe to the Channel<span class="checkmark">✓</span></div>
+                </div>
+                <div class="task-description">
+                    Click the button below to open the YouTube video. Subscribe to the channel and help us grow!
+                </div>
+                <button class="task-btn" id="task1Btn" onclick="completeTask1()">Open Video & Subscribe</button>
+            </div>
+
+            <!-- Task 2: Like and Comment -->
+            <div class="task-container" id="task2">
+                <div class="task-header">
+                    <div class="task-number">2</div>
+                    <div class="task-title">Like & Comment<span class="checkmark">✓</span></div>
+                </div>
+                <div class="task-description">
+                    Like the video and leave a comment. This helps support the content!
+                </div>
+                <button class="task-btn" id="task2Btn" onclick="completeTask2()">I've Liked & Commented</button>
+            </div>
+
+            <button class="unlock-btn" id="unlockBtn" onclick="unlockDownload()">Unlock Download</button>
         </div>
     </div>
 
@@ -334,5 +576,84 @@
             <p>&copy; 2025 qelix.cc. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        let currentVideoUrl = '';
+        let currentItemName = '';
+        let task1Complete = false;
+        let task2Complete = false;
+
+        function openLocker(itemName, videoUrl) {
+            currentItemName = itemName;
+            currentVideoUrl = videoUrl;
+            document.getElementById('lockerItemName').textContent = itemName;
+            document.getElementById('lockerOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Reset tasks
+            task1Complete = false;
+            task2Complete = false;
+            document.getElementById('task1').classList.remove('completed');
+            document.getElementById('task2').classList.remove('completed');
+            document.getElementById('task1Btn').classList.remove('completed');
+            document.getElementById('task2Btn').classList.remove('completed');
+            document.getElementById('task1Btn').textContent = 'Open Video & Subscribe';
+            document.getElementById('task2Btn').textContent = "I've Liked & Commented";
+            document.getElementById('unlockBtn').classList.remove('active');
+        }
+
+        function closeLocker() {
+            document.getElementById('lockerOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function completeTask1() {
+            if (!task1Complete) {
+                // Open YouTube video in new tab
+                window.open(currentVideoUrl, '_blank');
+                
+                // Mark task as complete after a short delay
+                setTimeout(() => {
+                    task1Complete = true;
+                    document.getElementById('task1').classList.add('completed');
+                    document.getElementById('task1Btn').classList.add('completed');
+                    document.getElementById('task1Btn').textContent = 'Completed ✓';
+                    checkAllTasks();
+                }, 1000);
+            }
+        }
+
+        function completeTask2() {
+            if (!task2Complete && task1Complete) {
+                task2Complete = true;
+                document.getElementById('task2').classList.add('completed');
+                document.getElementById('task2Btn').classList.add('completed');
+                document.getElementById('task2Btn').textContent = 'Completed ✓';
+                checkAllTasks();
+            }
+        }
+
+        function checkAllTasks() {
+            if (task1Complete && task2Complete) {
+                document.getElementById('unlockBtn').classList.add('active');
+            }
+        }
+
+        function unlockDownload() {
+            if (task1Complete && task2Complete) {
+                alert('Download unlocked! Your download will begin shortly.');
+                // Add your actual download link here
+                // window.location.href = 'YOUR_DOWNLOAD_LINK';
+                closeLocker();
+            }
+        }
+
+        // Close locker when clicking outside
+        document.getElementById('lockerOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLocker();
+            }
+        });
+    </script>
 </body>
 </html>
