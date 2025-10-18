@@ -24,6 +24,65 @@
             position: relative;
         }
 
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease 2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        .loading-logo {
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        /* Page fade in */
+        .main-content {
+            animation: pageAppear 0.8s ease 2s backwards;
+        }
+
+        @keyframes pageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -548,7 +607,7 @@
                 <div class="logo">qelix.cc</div>
                 <div class="nav-right">
                     <ul>
-                        <li><a href="/">Downloads</a></li>
+                        <li><a href="/">Home</a></li>
                         <li><a href="/about/">About</a></li>
                         <li><a href="/contact/">Contact</a></li>
                     </ul>
@@ -575,9 +634,9 @@
     </header>
 
     <div class="container">
-        <section class="hero" id="downloads">
-            <h1>Downloads</h1>
-            <p>@qelixmc</p>
+        <section class="hero" id="home">
+            <h1>Qelix</h1>
+            <p>Premium downloads and resources all in one place</p>
         </section>
 
         <div class="grid" id="downloads">
@@ -837,4 +896,3 @@
     </script>
 </body>
 </html>
-
